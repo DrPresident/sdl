@@ -1,0 +1,13 @@
+#include <vector>
+
+class Screen{
+    public:
+        Screen();
+
+        void update();
+        void add(Object&);
+        bool remove(Object&);
+
+    private:
+        vector<Object*> drawn;
+}

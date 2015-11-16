@@ -1,3 +1,6 @@
+#ifndef SPRITE
+#define SPRITE
+
 #include <SDL/SDL.h>
 
 class Sprite{
@@ -6,3 +9,5 @@ class Sprite{
     private:
         
 };
+
+#endif

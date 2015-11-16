@@ -1,3 +1,6 @@
+#ifndef KEYBINDINGS
+#define KEYBINDINGS
+
 #define A 
 #define B 
 #define C 
@@ -72,4 +75,6 @@ class KeyBinding{
     private:
 
         const char* key;
-}
+};
+
+#endif

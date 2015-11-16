@@ -1,3 +1,6 @@
+#ifndef HERO
+#define HERO
+
 #include <SDL/SDL.h>
 #include "sprite.h"
 #include "anim.h"
@@ -16,3 +19,5 @@ class Hero{
         int y;
         int numAnims;
 };
+
+#endif

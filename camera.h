@@ -1,3 +1,6 @@
+#ifndef CAMERA
+#define CAMERA
+
 #include <SDL/SDL.h>
 
 class Camera{
@@ -22,3 +25,5 @@ class Camera{
 
         SDL_Rect *rect;
 };
+
+#endif

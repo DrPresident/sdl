@@ -1,3 +1,6 @@
+#ifndef ANIM
+#define ANIM
+
 #include <SDL/SDL.h>
 
 class Animation{
@@ -34,3 +37,5 @@ class Animation{
             curFrame,
             delay;
 };
+
+#endif

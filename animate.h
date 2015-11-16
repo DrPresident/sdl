@@ -1,3 +1,6 @@
+#ifndef ANIMATE
+#define ANIMATE
+
 #include "object.h"
 
 class Animate : public Visible{
@@ -5,4 +8,6 @@ class Animate : public Visible{
 
     private:
         
-}
+};
+
+#endif

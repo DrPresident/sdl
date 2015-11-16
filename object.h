@@ -1,3 +1,6 @@
+#ifndef OBJECT
+#define OBJECT
+
 class Object{
     public:
 
@@ -7,4 +10,6 @@ class Object{
         int y;
         int w;
         int h;
-}
+};
+
+#endif
