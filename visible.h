@@ -6,8 +6,12 @@
 
 class Visible : public Object{
     public:
+        SDL_Rect* getRect(){ return sprite->getRect(); }
+        SDL_Surface* getSprite(){ return sprite->getSprite(); } 
 
-    private:
+    protected:
+        Sprite *sprite;
+
 };
 
 #endif

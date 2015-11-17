@@ -7,9 +7,8 @@ class Animation{
     public:
 
         Animation();
-        Animation(int, int);
+        Animation(int w, int h, int rows, int cols);
 
-        int getFrames();
         int getColumns();
         int getRows();
 
@@ -32,10 +31,11 @@ class Animation{
             frameWidth,
             xOffSet,
             yOffSet,
-            numFrames,
             startFrame,
             curFrame,
             delay;
+
+        SDL_Surface* sprite;
 };
 
 #endif

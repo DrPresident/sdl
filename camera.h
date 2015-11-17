@@ -2,25 +2,20 @@
 #define CAMERA
 
 #include <SDL/SDL.h>
+#include "object.h"
 
-class Camera{
+class Camera : public Object{
     public:
         Camera();
         
-        int     X();
-        void    X(int);
-        int     Y();
-        void    Y(int);
-        void    Zoom(int);
+        void Zoom(int);
+        
+        void toWorldSpaceX(int x);
+        void toWorldSpaceY(int y);
 
         SDL_Rect* getRect();
 
     private:
-        int x,
-            y,
-            w,
-            h;
-
         void updateRect();
 
         SDL_Rect *rect;

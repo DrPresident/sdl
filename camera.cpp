@@ -9,24 +9,6 @@ Camera::Camera(){
     rect = new SDL_Rect();
 }
 
-int Camera::X(){
-    return x;
-}
-
-void Camera::X(int x){
-    this->x = x;
-    updateRect();
-}
-
-int Camera::Y(){
-    return y;
-}
-
-void Camera::Y(int y){
-    this->y = y;
-    updateRect();
-}
-
 void Camera::Zoom(int z){
     x += z;
     y += z;

@@ -2,13 +2,23 @@
 
 Animation::Animation(){
 
+    xOffSet = 0;
+    yOffSet = 0;
+    frameWidth = 32;
+    frameHeight = 32;
+    row = 0;
+    col = 0;
+    startFrame = 1;
+    totalRows = 1;
+    totalColumns = 1;
+    
 }
 
-Animation::Animation(int rows, int cols){
+Animation::Animation(int w, int h, int rows, int cols){
 
 }
 
-int Animation::getFrames(){
+int Animation::getNumFrames(){
    return totalRows * totalColumns;
 }
 
