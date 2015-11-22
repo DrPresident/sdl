@@ -7,10 +7,13 @@ class Animation{
     public:
 
         Animation();
-        Animation(int w, int h, int rows, int cols);
+        Animation(SDL_Surface *sprite, int w, int h, int startFrame, int frames, 
+                  int msDelay, int xOffset = 0, int yOffset = 0);
 
-        int getColumns();
-        int getRows();
+        void play(int loop = 1);
+        void start();
+        void stop();
+        void update(int);
 
         SDL_Rect* getFrame();
         void jumpToFrame(int);
@@ -29,12 +32,17 @@ class Animation{
             col,
             frameHeight,
             frameWidth,
-            xOffSet,
-            yOffSet,
+            numFrames,
+            xOffset,
+            yOffset,
             startFrame,
             curFrame,
-            delay;
+            delay,
+            timer,
+            loops;
 
+        bool playing;
+        bool stopping;
         SDL_Surface* sprite;
 };
 

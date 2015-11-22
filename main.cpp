@@ -1,31 +1,48 @@
 #include <SDL/SDL.h>
+#include <vector>
+#include <ctime>
 #include "sprite.h"
 #include "screen.h"
 #include "hero.h"
+#include "instance.h"
+
+using namespace std;
+
+const time_t fps = 60;
 
 int main(){
 
-//    SDL_Surface *sprite = NULL;
-//    SDL_Surface *screen = NULL;
-//    SDL_Rect    rect;
+    bool quit = false;
+    time_t startTime;
+    time_t curTime;
+    time_t endTime;
+    time_t dTime;
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    Sprite guy("res/sprite.bmp");
-    Screen screen(920, 1080);
-/*
-    screen = SDL_SetVideoMode(640, 480, 32, SDL_SWSURFACE);
-    sprite = SDL_LoadBMP("res/sprite.bmp");
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 32;
-    rect.h = 32;
-*/
-    SDL_BlitSurface(guy.getSprite(), guy.getRect(), screen.getSurface(), NULL);
+    Hero guy("guy", "res/sprite.bmp", 100, 100);
 
-    SDL_Flip(screen.getSurface());
+    Instance game;
 
-    SDL_Delay(2000);
+    Screen mainWindow(1080, 920);
+    mainWindow.add(guy);
+
+    game.addScreen(mainWindow);
+    
+    startTime = time(NULL);
+    curTime = startTime;
+    dTime = startTime;
+    
+    for(;(curTime - startTime) < 4000; dTime = time(NULL) - curTime){
+
+        if(dTime >= 1 / fps){
+            curTime += dTime;
+        
+            game.updateScreens(dTime);
+        }
+    }
+
+    SDL_Delay(4000);
 
     SDL_Quit();
 

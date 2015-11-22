@@ -1,16 +1,32 @@
 #include "screen.h"
 
+#include <iostream>
+
 using namespace std;
 
-Screen::Screen(int w, int h){
+Screen::Screen(int w, int h, int fps){
+    
     screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE);
+    this->fps = fps;
 }
 
-void Screen::update(){
-    
+void Screen::update(int dTime){
+   
+    SDL_Rect position;
+    SDL_Delay(1 / fps);
+
     for(int i = 0; i < drawn.size(); i++){
-        SDL_BlitSurface(drawn[i]->getSprite(), drawn[i]->getRect(), screen, NULL); 
+
+        drawn[i]->update(dTime);
+
+        position.x = drawn[i]->getX();
+        position.y = drawn[i]->getY();
+        position.h = drawn[i]->getHeight();
+        position.w = drawn[i]->getWidth();
+
+        SDL_BlitSurface(drawn[i]->getSprite(), drawn[i]->getRect(), screen, &position);
     }
+    SDL_Flip(screen);
 }
 
 void Screen::add(Visible &vis){
