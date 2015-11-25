@@ -12,17 +12,20 @@ Animation::Animation(){
     
 }
 
-Animation::Animation(SDL_Surface *sprite, int w, int h, int start, int frames, 
-                     int msDelay, int xOffset, int yOffset){
+Animation::Animation(SDL_Surface *sprite, int startFrame, int frames, 
+                     int msDelay){
 
     this->sprite = sprite;
-    frameWidth = w;
-    frameHeight = h;
+    
+    frameWidth = (sprite->w - xOffset) / sprite->cols;
+    frameHeight = (sprite->h - yOffset) / sprite->rows;
+    
     startFrame = start;
     numFrames = frames;
     delay = msDelay;
-    this->xOffset = xOffset;
-    this->yOffset = yOffset;
+    
+    this->xOffset = 0;
+    this->yOffset = 0;
 
     curFrame = startFrame;
     timer = 0;
@@ -83,7 +86,7 @@ void Animation::update(int dTime){
 }
 
 int Animation::getNumFrames(){
-   return totalRows * totalColumns;
+   return numFrames;
 }
 
 SDL_Rect* Animation::getFrame(){

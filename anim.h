@@ -7,8 +7,8 @@ class Animation{
     public:
 
         Animation();
-        Animation(SDL_Surface *sprite, int w, int h, int startFrame, int frames, 
-                  int msDelay, int xOffset = 0, int yOffset = 0);
+        Animation(SDL_Surface *sprite, int startFrame, int frames, 
+                  int msDelay);
 
         void play(int loop = 1);
         void start();
@@ -44,6 +44,8 @@ class Animation{
         bool playing;
         bool stopping;
         SDL_Surface* sprite;
+        
+        friend class Sprite;
 };
 
 #endif

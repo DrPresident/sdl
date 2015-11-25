@@ -1,9 +1,9 @@
 #include "sprite.h"
 
-Sprite::Sprite(const char* resource){
+Sprite::Sprite(const char* resource, int numAnims = 0, int r = 1, int c = 1){
     
     sprite = IMG_Load(resource);
-    anim = new Animation();
+    curAnim = 0;
 }
 
 bool Sprite::loadSprite(const char* resource){
@@ -16,5 +16,12 @@ bool Sprite::loadSprite(const char* resource){
 
 void Sprite::update(int dTime){
 
-    anim->update(dTime);
+    anims[curAnim]->update(dTime);
+}
+
+int addAnim(int startFrame, int frames, msDelay){
+
+    anims.push_back(Animation(this, rows, cols, startFrame, frames, msDelay); 
+
+    return anims.size() - 1;
 }
