@@ -1,6 +1,6 @@
 #include "hero.h"
 
-Hero::Hero(const char* name, const char* imgRes, int x, int y, int w, int h,
+Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w, int h,
             int numAnims, int r, int c)
             : Visible(imgRes, x, y, w, h, numAnims, r, c, true, true){
 
@@ -8,6 +8,7 @@ Hero::Hero(const char* name, const char* imgRes, int x, int y, int w, int h,
     sprite->addAnim(0, 3, 1000);
     //TESTING
     
+    this->speed = speed;
     reactive = true;
     collider = true;
 
@@ -25,27 +26,25 @@ void Hero::update(int dTime){
 }
 
 void Hero::moveLeft(int dTime){
-
+    x -= speed * dTime;
 }
 
 void Hero::moveRight(int dTime){
-
+    x += speed * dTime;
 }
 
 void Hero::moveUp(int dTime){
-
+    y -= speed * dTime;
 }
 
 void Hero::moveDown(int dTime){
-
+    y += speed * dTime;
 }
 
-void Hero::jump(int dTime){
-
-}
+void Hero::jump(int dTime){}
 
 void Hero::attack(int dTime){
-
+    
 }
 
 void Hero::shoot(int dTime){

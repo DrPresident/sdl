@@ -26,8 +26,8 @@ int main(){
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    hero     = new Hero("guy", "res/sprite.bmp", 100, 100, 32, 32, 4, 4, 3);
-    testHero = new Hero("test", "res/sprite.bmp", 90, 90, 32, 32, 4, 4, 3);
+    hero     = new Hero("guy", "res/sprite.bmp", 10, 100, 100, 32, 32, 4, 4, 3);
+    testHero = new Hero("test", "res/sprite.bmp", 10, 90, 90, 32, 32, 4, 4, 3);
     Visible background("res/blank.bmp", 0, 0, -1, -1, 0, 1, 1, false, false);
 
     Instance game;
