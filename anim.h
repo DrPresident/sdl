@@ -2,12 +2,16 @@
 #define ANIM
 
 #include <SDL/SDL.h>
+#include <cassert>
+#include "sprite.h"
+
+class Sprite;
 
 class Animation{
     public:
 
         Animation();
-        Animation(SDL_Surface *sprite, int startFrame, int frames, 
+        Animation(Sprite *sprite, int startFrame, int frames, 
                   int msDelay);
 
         void play(int loop = 1);
@@ -16,12 +20,10 @@ class Animation{
         void update(int);
 
         SDL_Rect* getFrame();
-        void jumpToFrame(int);
 
         int getNumFrames();
         void setNumFrames(int);
 
-        void changeFrame(int);
         void setFrame(int);
 
     private:
@@ -43,9 +45,9 @@ class Animation{
 
         bool playing;
         bool stopping;
-        SDL_Surface* sprite;
+        Sprite* sprite;
+        SDL_Rect *rect;
         
-        friend class Sprite;
 };
 
 #endif

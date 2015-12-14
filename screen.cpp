@@ -13,8 +13,16 @@ Screen::Screen(int w, int h, int fps){
 void Screen::update(int dTime){
    
     SDL_Rect position;
-    SDL_Delay(1 / fps);
 
+    //check Collisions
+    for(int x = 0; x < colliders.size() - 1; x++)
+        for(int y = x + 1; y < colliders.size(); y++){
+            cout << "checking " << x << ',' << y << endl;
+            if(colliders[x]->isColliding(colliders[y]))
+                colliders[x]->handleCollision();
+        }
+
+    //drawing
     for(int i = 0; i < drawn.size(); i++){
 
         drawn[i]->update(dTime);
@@ -26,12 +34,22 @@ void Screen::update(int dTime){
 
         SDL_BlitSurface(drawn[i]->getSprite(), drawn[i]->getRect(), screen, &position);
     }
+    
     SDL_Flip(screen);
 }
 
 void Screen::add(Visible &vis){
 
     drawn.push_back(&vis);
+
+    if(vis.canCollide())
+        colliders.push_back(&vis);
+}
+
+void Screen::add(Object &obj){
+    
+    if(obj.canCollide())
+        colliders.push_back(&obj);
 }
 
 void Screen::remove(Object &obj){
@@ -42,6 +60,8 @@ void Screen::remove(Object &obj){
 void Screen::clear(){
     
     drawn.clear();
-//    colliders.clear();
+    colliders.clear();
     cameras.clear();
 }
+
+

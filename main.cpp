@@ -5,45 +5,55 @@
 #include "screen.h"
 #include "hero.h"
 #include "instance.h"
+#include "controls.h"
+
+#define RUNTIME 10000
 
 using namespace std;
 
-const time_t fps = 60;
+const int FPS = 60;
 
 int main(){
 
     bool quit = false;
-    time_t startTime;
-    time_t curTime;
-    time_t endTime;
-    time_t dTime;
+    int  startTime,
+         curTime,
+         endTime,
+         dTime;
+
+    Hero *hero;
+    Hero *testHero;
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    Hero guy("guy", "res/sprite.bmp", 100, 100);
+    hero     = new Hero("guy", "res/sprite.bmp", 100, 100, 32, 32, 4, 4, 3);
+    testHero = new Hero("test", "res/sprite.bmp", 90, 90, 32, 32, 4, 4, 3);
+    Visible background("res/blank.bmp", 0, 0, -1, -1, 0, 1, 1, false, false);
 
     Instance game;
 
     Screen mainWindow(1080, 920);
-    mainWindow.add(guy);
+
+    mainWindow.add(background);
+    mainWindow.add(*testHero);
+    mainWindow.add(*hero);
 
     game.addScreen(mainWindow);
     
-    startTime = time(NULL);
-    curTime = startTime;
-    dTime = startTime;
-    
-    for(;(curTime - startTime) < 4000; dTime = time(NULL) - curTime){
+    Controls controller(hero);
 
-        if(dTime >= 1 / fps){
+    startTime = SDL_GetTicks();
+    curTime = startTime;
+
+    for(dTime = 0; (curTime - startTime) < RUNTIME; dTime = SDL_GetTicks() - curTime){
+
+        controller.checkInput(dTime);
+
+        if(dTime >= 1000 / FPS){
             curTime += dTime;
-        
             game.updateScreens(dTime);
         }
     }
-
-    SDL_Delay(4000);
-
     SDL_Quit();
 
     return 0;

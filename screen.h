@@ -14,6 +14,7 @@ class Screen{
 
         void update(int);
         void add(Visible&);
+        void add(Object&);
         void remove(Object&);
         void clear();
         void setFPS(int fps){ this->fps = fps; }
@@ -22,7 +23,7 @@ class Screen{
 
     private:
         std::vector<Visible*> drawn;
-        std::vector<Collider*> colliders;
+        std::vector<Object*> colliders;
         std::vector<Camera*> cameras;
 
         SDL_Surface *screen;

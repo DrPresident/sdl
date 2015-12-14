@@ -9,29 +9,36 @@ Animation::Animation(){
     numFrames = 1;
     startFrame = 1;
     timer = 0;
-    
+    rect = new SDL_Rect();
+    rect->w = frameWidth;
+    rect->h = frameHeight;
 }
 
-Animation::Animation(SDL_Surface *sprite, int startFrame, int frames, 
+Animation::Animation(Sprite *sprite, int startFrame, int frames, 
                      int msDelay){
 
     this->sprite = sprite;
+ 
+    this->xOffset = 0;
+    this->yOffset = 0;
+   
+    frameWidth = (sprite->surface->w - xOffset) / sprite->cols;
+    frameHeight = (sprite->surface->h - yOffset) / sprite->rows;
     
-    frameWidth = (sprite->w - xOffset) / sprite->cols;
-    frameHeight = (sprite->h - yOffset) / sprite->rows;
-    
-    startFrame = start;
+    this->startFrame = startFrame;
     numFrames = frames;
     delay = msDelay;
     
-    this->xOffset = 0;
-    this->yOffset = 0;
 
     curFrame = startFrame;
     timer = 0;
     loops = 0;
     playing = false;
-    stopping = false; 
+    stopping = false;
+
+    rect = new SDL_Rect();
+    rect->w = frameWidth;
+    rect->h = frameHeight;
 }
 
 void Animation::play(int loop){
@@ -60,7 +67,8 @@ void Animation::update(int dTime){
         
         // advance to next frame if past delay
         if(timer >= delay){
-            curFrame = ((curFrame + 1) % (numFrames + startFrame)) + startFrame;
+            timer = 0;
+            curFrame = (((curFrame + 1) % (numFrames + startFrame))) + startFrame;
 
             // check for beginning of animation
             if(curFrame == startFrame){
@@ -83,20 +91,25 @@ void Animation::update(int dTime){
             }
         }
     }
-}
-
-int Animation::getNumFrames(){
-   return numFrames;
+    rect->x = ((curFrame % sprite->cols) * frameWidth) + xOffset;
+    rect->y = ((curFrame / sprite->cols) * frameHeight) + yOffset;
+    std::cout << "frame - " << curFrame << std::endl;
 }
 
 SDL_Rect* Animation::getFrame(){
-    
-    SDL_Rect *rect = new SDL_Rect();
 
-    rect->x = xOffset + (frameWidth * curFrame);
-    rect->y = yOffset + (frameHeight * curFrame);
-    rect->w = frameWidth;
-    rect->h = frameHeight;
-
+    assert(rect);
     return rect;
+}
+
+int Animation::getNumFrames(){
+    return numFrames;
+}
+
+void Animation::setNumFrames(int num){
+    numFrames = num;
+}
+
+void Animation::setFrame(int frame){
+    curFrame = frame;
 }
