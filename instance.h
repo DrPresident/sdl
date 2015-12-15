@@ -5,14 +5,10 @@
 
 #include <algorithm>
 #include "screen.h"
-#include "hero.h"
 #include "controls.h"
-
-class Hero;
 
 class Instance{
     public:
-
         void run();
         void updateScreens(int);
 
@@ -21,9 +17,6 @@ class Instance{
     private:
     
         std::vector<Screen*> screens;
-        Hero* player;
-        Controls* playerControls;
-
 };
 
 #endif

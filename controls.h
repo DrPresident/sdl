@@ -6,11 +6,11 @@
 #include "anim.h"
 #include "controlIFC.h"
 
-template<class T>
+template<typename T>
 class Controls{
     public:
         Controls();
-        Controls(T);
+        Controls(T*);
 
         void checkInput(int);
         
@@ -48,62 +48,29 @@ class Controls{
         std::map<int, void (T::*)(int)> characterKeyBindings;
         std::map<int, void(*)(int)> keyBindings;
         void (ControlIFC::*mouseBinding)(int, int, int);
-        std::map<int, void (T::*)(int, int,int)> spearateMouseBindings;
-
+        std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
 };
 
-template <class T>
-Controls::Controls(){
+template <typename T>
+Controls<T>::Controls(){
     
     character = NULL;
 }
 
-template <class T>
-Controls::Controls(T* character){
+template <typename T>
+Controls<T>::Controls(T* character){
 
     this->character = character;
 }
 
-template <class T>
-void Controls::checkInput(int dTime){
+template <typename T>
+void Controls<T>::checkInput(int dTime){
 
     while(SDL_PollEvent(&event)){
          
         switch(event.type){
         
-            case SDL_KEYDOWN:
-                
-                // CUSTOM BINDINGS
-                if(customKeyBindings.find(event.key.keysym.sym) != customKeyBindings.end())
-                    character->*(customKeyBindings[event.key.keysym.sym])();
-
-                // DEFAULT BINDINGS
-                else{
-
-                    switch(defaultBindings[event.key.keysym.sym]){
-                        case "MoveRight":
-                            character->moveRight(dTime);
-                            break;
-                        case "MoveLeft":
-                            character->moveLeft(dTime); 
-                            break;
-                        case "MoveUp":
-                            character->moveUp(dTime);
-                            break;
-                        case "MoveDown":
-                            character->moveDown(dTime);
-                            break;
-                        case "Jump":
-                            character->jump(dTime);
-                            break;
-                        case "Attack":
-                            character->attack(dTime);
-                            break;
-                        case "Shoot":
-                            character->shoot(dTime);
-                            break;
-                    }
-                }
+            case SDL_KEYDOWN: 
 
                 break;
         
@@ -114,12 +81,12 @@ void Controls::checkInput(int dTime){
             case SDL_MOUSEBUTTONDOWN:
                 
                 // SINGLE MOUSE BUTTON FUNCTIONS
-                if(customMouseBinding.find(event.button) != customMouseBinding.end())
-                    character->*(customMouseBindings[event.button])(event.x, event.y);
+                if(separateMouseBindings.find(event.button.button) != separateMouseBindings.end())
+                    (character->*(separateMouseBindings[event.button.button]))(event.button.button, event.button.x, event.button.y);
 
                 // GENERAL MOUSE BUTTON FUNCTION
                 else
-                    character->*(mouseBinding)(event.button, event.x, event.y);
+                    (character->*(mouseBinding))(event.button.button, event.button.x, event.button.y);
                 
                 break;
 
@@ -134,27 +101,31 @@ void Controls::checkInput(int dTime){
     }
 }
 
-void Controls::bindControl(int key, void (T::*func)(int)){
+template <typename T>
+void Controls<T>::bindControl(int key, void (T::*func)(int)){
     
-    defaultBindings.erase(key);
-    customMouseBindings.erase(key);
+    characterKeyBindings.erase(key);
+    keyBindings.erase(key);
 
-    customKeyBindings[key] = func;
+    characterKeyBindings[key] = func;
 }
 
-void Controls::bindControl(int key, void (T::*func)(int, int, int)){
+template <typename T>
+void Controls<T>::bindControl(int key, void (T::*func)(int, int, int)){
 
     if(key < 3 && key > 0)
-        customMouseBindings[key] = func;
+        separateMouseBindings[key] = func;
 }
 
-void Controls::bindControl(void (T::*func)(int, int, int)){
+template <typename T>
+void Controls<T>::bindControl(void (T::*func)(int, int, int)){
 
-    customMouseBindings.clear();
+    separateMouseBindings.clear();
     mouseBinding = func;
 }
 
-void Controls::bindControl(int, void(*func)(int)){
+template <typename T>
+void Controls<T>::bindControl(int, void(*func)(int)){
 
     
 }
