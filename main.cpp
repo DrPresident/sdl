@@ -40,7 +40,7 @@ int main(){
 
     game.addScreen(mainWindow);
     
-    Controls controller(hero);
+    Controls<Hero> controller(hero);
 
     startTime = SDL_GetTicks();
     curTime = startTime;
