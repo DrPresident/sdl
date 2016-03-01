@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-class Hero : public Visible, public ControlIFC{
+class Hero : public Visible{
     public:
         Hero(const char* name = "name", const char* imgRes = "res/default.png", int speed = 1, 
                 int x = 0, int y = 0, int w = 32, int h = 32, 
@@ -16,15 +16,10 @@ class Hero : public Visible, public ControlIFC{
 
         virtual void update(int);
 
-        // --Controller Interface--
-        virtual void moveLeft(int);
-        virtual void moveRight(int);
-        virtual void moveUp(int);
-        virtual void moveDown(int);
-        virtual void jump(int);
-        virtual void attack(int);
-        virtual void shoot(int);
-        virtual void onClick(int, int, int);
+        void moveLeft(int);
+        void moveRight(int);
+        void moveUp(int);
+        void moveDown(int);
 
     protected:
         const char* name;

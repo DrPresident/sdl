@@ -25,6 +25,7 @@ void Hero::update(int dTime){
     //DEBUGGING
 }
 
+
 void Hero::moveLeft(int dTime){
     x -= speed * dTime;
 }
@@ -41,6 +42,7 @@ void Hero::moveDown(int dTime){
     y += speed * dTime;
 }
 
+/*
 void Hero::jump(int dTime){}
 
 void Hero::attack(int dTime){
@@ -54,3 +56,4 @@ void Hero::shoot(int dTime){
 void Hero::onClick(int button, int x, int y){
 
 }
+*/

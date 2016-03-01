@@ -13,3 +13,5 @@ void Instance::updateScreens(int dTime){
 void Instance::removeScreen(Screen& scr){ 
     screens.erase(std::find(screens.begin(), screens.end(), &scr)); 
 }
+
+

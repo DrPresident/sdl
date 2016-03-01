@@ -4,7 +4,6 @@
 #include <SDL/SDL.h>
 #include <map>
 #include "anim.h"
-#include "controlIFC.h"
 
 template<typename T>
 class Controls{
@@ -14,9 +13,8 @@ class Controls{
 
         void checkInput(int);
         
-        /* Sets up the key binding for a member function of
-         * a class the derives from ControlIFC, will overwrite
-         * a previous binding.
+        /* Sets up the key binding for a member function of T, 
+         * it will overwrite a previous binding.
          */
         void bindControl(int, void (T::*)(int));
 
@@ -24,7 +22,7 @@ class Controls{
          * keys set up this way take priority over the function
          * that controls all mouse key bindings.
          */
-        void bindControl(int, void (T::*)(int, int, int));
+//        void bindControl(int, void (T::*)(int, int, int));
 
         /* Binds all mouse keys to one function, will clear previous
          * bindings to mouse keys, but any set up after will have
@@ -46,8 +44,8 @@ class Controls{
         SDL_Event event;
 
         std::map<int, void (T::*)(int)> characterKeyBindings;
-        std::map<int, void(*)(int)> keyBindings;
-        void (ControlIFC::*mouseBinding)(int, int, int);
+        std::map<int, void(*)(int)>     keyBindings;
+        void (T::*mouseBinding)(int, int, int);
         std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
 };
 
@@ -71,7 +69,7 @@ void Controls<T>::checkInput(int dTime){
         switch(event.type){
         
             case SDL_KEYDOWN: 
-
+                (character->*(characterKeyBindings[event.key]))(dTime);
                 break;
         
             case SDL_KEYUP:
@@ -110,17 +108,19 @@ void Controls<T>::bindControl(int key, void (T::*func)(int)){
     characterKeyBindings[key] = func;
 }
 
+/*
 template <typename T>
 void Controls<T>::bindControl(int key, void (T::*func)(int, int, int)){
 
     if(key < 3 && key > 0)
         separateMouseBindings[key] = func;
 }
+*/
 
 template <typename T>
 void Controls<T>::bindControl(void (T::*func)(int, int, int)){
 
-    separateMouseBindings.clear();
+    //separateMouseBindings.clear();
     mouseBinding = func;
 }
 

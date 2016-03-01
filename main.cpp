@@ -23,6 +23,7 @@ int main(){
 
     Hero *hero;
     Hero *testHero;
+    Controls<Hero> *controller = new Controls<Hero>(hero);
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -40,20 +41,21 @@ int main(){
 
     game.addScreen(mainWindow);
     
-    Controls<Hero> controller(hero);
+    controller->bindControl(SDLK_DOWN, &Hero::moveDown);
 
     startTime = SDL_GetTicks();
     curTime = startTime;
 
     for(dTime = 0; (curTime - startTime) < RUNTIME; dTime = SDL_GetTicks() - curTime){
 
-        controller.checkInput(dTime);
+        controller->checkInput(dTime);
 
         if(dTime >= 1000 / FPS){
             curTime += dTime;
             game.updateScreens(dTime);
         }
     }
+
     SDL_Quit();
 
     return 0;

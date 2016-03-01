@@ -2,7 +2,6 @@
 #define OBJECT
 
 #include <cstddef>
-#include "controlIFC.h"
 
 #include <iostream>
 using namespace std;
