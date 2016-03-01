@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <SDL/SDL.h>
 #include "object.h"
 #include "visible.h"
 #include "camera.h"

@@ -1,7 +1,5 @@
 #include "screen.h"
 
-#include <iostream>
-
 using namespace std;
 
 Screen::Screen(int w, int h, int fps){
