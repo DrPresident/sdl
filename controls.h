@@ -68,8 +68,9 @@ void Controls<T>::checkInput(int dTime){
          
         switch(event.type){
         
-            case SDL_KEYDOWN: 
-                (character->*(characterKeyBindings[event.key]))(dTime);
+            case SDL_KEYDOWN:
+                if(characterKeyBindings.find(event.key.keysym.sym) != characterKeyBindings.end())
+                    (character->*(characterKeyBindings[event.key.keysym.sym]))(dTime);
                 break;
         
             case SDL_KEYUP:

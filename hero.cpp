@@ -1,4 +1,5 @@
 #include "hero.h"
+#include <cmath>
 
 Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w, int h,
             int numAnims, int r, int c)
@@ -9,6 +10,9 @@ Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w,
     //TESTING
     
     this->speed = speed;
+    velocityX = 0;
+    velocityY = 0;
+
     reactive = true;
     collider = true;
 
@@ -17,14 +21,24 @@ Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w,
 
 void Hero::update(int dTime){
 
+    if(velocityX || velocityY){
+        if(abs(velocityX) > abs(velocityY)){
+            if(velocityX > 0)
+                getSprite()->setAnim(2);
+            else
+                getSprite()->setAnim(1);
+        }
+        else{
+            if(velocityY > 0)
+                getSprite()->setAnim(3);
+            else
+                getSprite()->setAnim(0);
+        }
+        sprite->start();
+    }
     sprite->update(dTime);
 
-    //DEBUGGING
-    sprite->start();
-    std::cout << "Hero::update" << std::endl;
-    //DEBUGGING
 }
-
 
 void Hero::moveLeft(int dTime){
     x -= speed * dTime;

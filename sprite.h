@@ -28,6 +28,7 @@ class Sprite : public Object{
 
         int getNumAnims();
         int addAnim(int startFrame, int frames, int msDelay);
+        void setAnim(int);
 
     private:
         SDL_Surface* surface;

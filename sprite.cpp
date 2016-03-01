@@ -68,3 +68,8 @@ int Sprite::addAnim(int startFrame, int frames, int msDelay){
 
     return anims.size() - 1;
 }
+
+void Sprite::setAnim(int a){
+    curAnim = a % anims.size();
+}
+

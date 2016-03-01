@@ -25,6 +25,8 @@ class Hero : public Visible{
         const char* name;
         int numAnims;
         int speed;
+        int velocityX;
+        int velocityY;
 };
 
 #endif

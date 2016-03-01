@@ -15,22 +15,18 @@ const int FPS = 60;
 
 int main(){
 
-    bool quit = false;
+//    bool quit = false;
     int  startTime,
          curTime,
-         endTime,
+//         endTime,
          dTime;
-
-    Hero *hero;
-    Hero *testHero;
-    Controls<Hero> *controller = new Controls<Hero>(hero);
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    hero     = new Hero("guy", "res/sprite.bmp", 10, 100, 100, 32, 32, 4, 4, 3);
-    testHero = new Hero("test", "res/sprite.bmp", 10, 90, 90, 32, 32, 4, 4, 3);
+    Hero *hero     = new Hero("guy", "res/sprite.bmp", 10, 100, 100, 32, 32, 4, 4, 3);
+    Hero *testHero = new Hero("test", "res/sprite.bmp", 10, 90, 90, 32, 32, 4, 4, 3);
     Visible background("res/blank.bmp", 0, 0, -1, -1, 0, 1, 1, false, false);
-
+    Controls<Hero> *controller = new Controls<Hero>(hero);
     Instance game;
 
     Screen mainWindow(1080, 920);

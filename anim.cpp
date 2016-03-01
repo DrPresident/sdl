@@ -68,7 +68,7 @@ void Animation::update(int dTime){
         // advance to next frame if past delay
         if(timer >= delay){
             timer = 0;
-            curFrame = (((curFrame + 1) % (numFrames + startFrame))) + startFrame;
+            curFrame = ((curFrame + 1) % (numFrames + startFrame)) + startFrame;
 
             // check for beginning of animation
             if(curFrame == startFrame){
@@ -93,7 +93,6 @@ void Animation::update(int dTime){
     }
     rect->x = ((curFrame % sprite->cols) * frameWidth) + xOffset;
     rect->y = ((curFrame / sprite->cols) * frameHeight) + yOffset;
-    std::cout << "frame - " << curFrame << std::endl;
 }
 
 SDL_Rect* Animation::getFrame(){
@@ -111,5 +110,5 @@ void Animation::setNumFrames(int num){
 }
 
 void Animation::setFrame(int frame){
-    curFrame = frame;
+    curFrame = frame % numFrames;
 }
