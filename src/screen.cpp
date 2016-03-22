@@ -62,4 +62,10 @@ void Screen::clear(){
     cameras.clear();
 }
 
+void Screen::setFPS(int fps){
+    this->fps = fps;
+}
 
+SDL_Surface* Screen::getSurface(){
+    return screen;
+}

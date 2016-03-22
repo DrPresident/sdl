@@ -1,4 +1,4 @@
-#include <SDL/SDL.h>
+#include "SDL/SDL.h"
 #include <vector>
 #include <ctime>
 #include "sprite.h"
@@ -15,10 +15,8 @@ const int FPS = 60;
 
 int main(){
 
-//    bool quit = false;
     int  startTime,
          curTime,
-//         endTime,
          dTime;
 
     SDL_Init(SDL_INIT_EVERYTHING);

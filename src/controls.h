@@ -1,7 +1,7 @@
 #ifndef CONTROLS
 #define CONTROLS
 
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include <map>
 #include "anim.h"
 

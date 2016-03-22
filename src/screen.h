@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include "object.h"
 #include "visible.h"
 #include "camera.h"
@@ -14,20 +14,21 @@ class Screen{
         Screen(int w = 640, int h = 480, int fps = 60);
 
         void update(int);
+        void draw();
         void add(Visible&);
         void add(Object&);
         void remove(Object&);
         void clear();
-        void setFPS(int fps){ this->fps = fps; }
+        void setFPS(int fps);
 
-        SDL_Surface* getSurface(){ return screen; }
+        SDL_Window* getScreen();
 
     private:
         std::vector<Visible*> drawn;
         std::vector<Object*> colliders;
         std::vector<Camera*> cameras;
 
-        SDL_Surface *screen;
+        SDL_Window *screen;
 
         int fps;
 };

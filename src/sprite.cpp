@@ -2,20 +2,57 @@
 
 Sprite::Sprite(const char* resource, int numAnims, int r, int c){
     
-    surface = IMG_Load(resource);
+    loadSprite(resource);
     
     curAnim = 0;
     rows = r;
     cols = c;
-
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 }
 
 bool Sprite::loadSprite(const char* resource){
 
-    SDL_FreeSurface(surface);
-    surface = IMG_Load(resource);
+    if(texture)
+        SDL_DestroyTexture(texture);
+
+    SDL_Surface *s = IMG_Load(resource);
+    texture = SDL_CreateTextureFromSurface(s);
+    SDL_FreeSurface(s);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
     return true;
+}
+
+int Sprite::getX(){
+    return x;
+}
+
+int Sprite::getY(){
+    return y;
+}
+
+int Sprite::getWidth(){
+    return w;
+}
+
+int Sprite::getHeight(){
+    return h;
+}
+
+void Sprite::setX(int x){
+    this->x = x;
+}
+
+void Sprite::setY(int y){
+    this->y = y;
+}
+
+void Sprite::setWidth(int w){
+    this->w = w;
+}
+
+void Sprite::setHeight(int h){
+    this->h = h;
 }
 
 void Sprite::update(int dTime){
@@ -42,8 +79,8 @@ SDL_Rect* Sprite::getRect(){
     
 }
 
-SDL_Surface* Sprite::getSurface(){
-    return surface;
+SDL_Texture* Sprite::getTexture(){
+    return texture;
 }
 
 void Sprite::play(){

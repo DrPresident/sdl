@@ -1,10 +1,9 @@
 #ifndef CAMERA
 #define CAMERA
 
-#include <SDL/SDL.h>
-#include "object.h"
+#include <SDL2/SDL.h>
 
-class Camera : public Object{
+class Camera{
     public:
         Camera();
         
@@ -13,12 +12,22 @@ class Camera : public Object{
         void toWorldSpaceX(int x);
         void toWorldSpaceY(int y);
 
+        void setMousePanning(bool pan);
+        bool hasMousePanning();
+
         SDL_Rect* getRect();
 
     private:
         void updateRect();
-
+        
+        bool mousePanning;
+        int panEdgeBuf;
         SDL_Rect *rect;
+
+        int x;
+        int y;
+        int w;
+        int h;
 };
 
 #endif
