@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <map>
 #include "anim.h"
+#include "tooDim.h"
 
 template<typename T>
 class Controls{
@@ -67,7 +68,11 @@ void Controls<T>::checkInput(int dTime){
     while(SDL_PollEvent(&event)){
          
         switch(event.type){
-        
+       
+            case SDL_QUIT:
+                
+                break;
+
             case SDL_KEYDOWN:
                 if(characterKeyBindings.find(event.key.keysym.sym) != characterKeyBindings.end())
                     (character->*(characterKeyBindings[event.key.keysym.sym]))(dTime);
