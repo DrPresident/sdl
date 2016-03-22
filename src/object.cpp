@@ -73,7 +73,6 @@ void Object::setCollider(bool col){
 bool Object::isColliding(Object *col){
    
     hit = 0x0; 
-    cout << "checking col" << endl;
 
     /* --Hit Flags--
      *   0000 0000

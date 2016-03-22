@@ -16,7 +16,7 @@ bool Sprite::loadSprite(const char* resource){
         SDL_DestroyTexture(texture);
 
     SDL_Surface *s = IMG_Load(resource);
-    texture = SDL_CreateTextureFromSurface(s);
+//    texture = SDL_CreateTextureFromSurface(s);
     SDL_FreeSurface(s);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
@@ -62,16 +62,9 @@ void Sprite::update(int dTime){
 }
 
 SDL_Rect* Sprite::getRect(){
-    
-    //DEBUGGING
-    std::cout << "curAnim -    " << curAnim << std::endl
-              << "anims.size - " << anims.size() << std::endl;
-    //DEBUGGING
-    
+     
     if(anims.size() > 0){
         assert(anims[curAnim].getFrame());
-        std::cout << "frame w - " << anims[curAnim].getFrame()->w << std::endl
-                  << "frame h - " << anims[curAnim].getFrame()->h << std::endl;
         return anims[curAnim].getFrame();
     }
     

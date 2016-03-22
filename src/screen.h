@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <SDL2/SDL.h>
 #include "object.h"
-#include "visible.h"
+//#include "visible.h"
 #include "camera.h"
 #include "collider.h"
 
@@ -15,7 +15,6 @@ class Screen{
 
         void update(int);
         void draw();
-        void add(Visible&);
         void add(Object&);
         void remove(Object&);
         void clear();
@@ -24,7 +23,7 @@ class Screen{
         SDL_Window* getScreen();
 
     private:
-        std::vector<Visible*> drawn;
+        std::vector<Object*> drawn;
         std::vector<Object*> colliders;
         std::vector<Camera*> cameras;
 
