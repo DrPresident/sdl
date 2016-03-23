@@ -1,7 +1,9 @@
 #include "sprite.h"
 
-Sprite::Sprite(const char* resource, int numAnims, int r, int c){
+Sprite::Sprite(SDL_Renderer *render, const char* resource, int numAnims, int r, int c){
     
+    texture = NULL;
+    renderer = render;
     loadSprite(resource);
     
     curAnim = 0;
@@ -16,7 +18,7 @@ bool Sprite::loadSprite(const char* resource){
         SDL_DestroyTexture(texture);
 
     SDL_Surface *s = IMG_Load(resource);
-//    texture = SDL_CreateTextureFromSurface(s);
+    texture = SDL_CreateTextureFromSurface(renderer, s);
     SDL_FreeSurface(s);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 

@@ -15,15 +15,15 @@ Object::Object(){
     col = NULL;
 }
 
-Object::Object(int x, int y, int w, int h, bool collider, bool reactive, Sprite* s){
+Object::Object(int x, int y, int w, int h){
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
     hit = 0x0;
-    this->collider = collider;
-    this->reactive = reactive;
-    sprite = s;
+    this->collider = false;
+    this->reactive = false;
+    sprite = NULL;
 }
 
 int Object::getX(){

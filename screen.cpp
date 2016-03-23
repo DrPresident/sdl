@@ -4,8 +4,10 @@ using namespace std;
 
 Screen::Screen(int w, int h, int fps){
     
-  //  screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE);
+    screen = SDL_CreateWindow("WINDOW",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, 0);
     this->fps = fps;
+    render = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED);
+    
 }
 
 void Screen::update(int dTime){
@@ -66,6 +68,10 @@ void Screen::clear(){
 
 void Screen::setFPS(int fps){
     this->fps = fps;
+}
+
+SDL_Renderer* Screen::getRenderer(){
+    return render;
 }
 
 SDL_Window* Screen::getScreen(){

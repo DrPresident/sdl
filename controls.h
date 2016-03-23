@@ -4,7 +4,6 @@
 #include <SDL2/SDL.h>
 #include <map>
 #include "anim.h"
-#include "tooDim.h"
 
 template<typename T>
 class Controls{
@@ -13,6 +12,8 @@ class Controls{
         Controls(T*);
 
         void checkInput(int);
+
+        void bindQuit(void(*)());
         
         /* Sets up the key binding for a member function of T, 
          * it will overwrite a previous binding.
@@ -48,12 +49,15 @@ class Controls{
         std::map<int, void(*)(int)>     keyBindings;
         void (T::*mouseBinding)(int, int, int);
         std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
+        void (*quit)();
 };
 
 template <typename T>
 Controls<T>::Controls(){
     
     character = NULL;
+    mouseBinding = NULL;
+    quit = NULL;
 }
 
 template <typename T>
@@ -62,6 +66,7 @@ Controls<T>::Controls(T* character){
     this->character = character;
 }
 
+
 template <typename T>
 void Controls<T>::checkInput(int dTime){
 
@@ -69,10 +74,6 @@ void Controls<T>::checkInput(int dTime){
          
         switch(event.type){
        
-            case SDL_QUIT:
-                
-                break;
-
             case SDL_KEYDOWN:
                 if(characterKeyBindings.find(event.key.keysym.sym) != characterKeyBindings.end())
                     (character->*(characterKeyBindings[event.key.keysym.sym]))(dTime);
@@ -99,10 +100,15 @@ void Controls<T>::checkInput(int dTime){
                 break;
         
             case SDL_QUIT:
-
+                (*(quit))();
                 break;      
         }
     }
+}
+
+template <typename T>
+void Controls<T>::bindQuit(void (*q)()){
+    quit = q;
 }
 
 template <typename T>
@@ -131,7 +137,7 @@ void Controls<T>::bindControl(void (T::*func)(int, int, int)){
 }
 
 template <typename T>
-void Controls<T>::bindControl(int, void(*func)(int)){
+void Controls<T>::bindControl(int, void (*func)(int)){
 
     
 }

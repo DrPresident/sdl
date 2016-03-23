@@ -9,9 +9,7 @@ using namespace std;
 class Object{
     public:
         Object();
-        Object(int x = 0, int y = 0, int w = 0, int h = 0, 
-                bool collider = true, bool reactive = false,
-                Sprite* s = NULL);
+        Object(int x, int y, int w, int h);
 
         int getX();
         int getY();

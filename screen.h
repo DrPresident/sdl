@@ -19,6 +19,7 @@ class Screen{
         void remove(Object&);
         void clear();
         void setFPS(int fps);
+        SDL_Renderer *getRenderer();
 
         SDL_Window* getScreen();
 
@@ -28,6 +29,7 @@ class Screen{
         std::vector<Camera*> cameras;
 
         SDL_Window *screen;
+        SDL_Renderer *render;
 
         int fps;
 };

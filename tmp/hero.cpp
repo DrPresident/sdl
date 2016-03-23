@@ -1,13 +1,13 @@
 #include "hero.h"
 #include <cmath>
 
-Hero::Hero(int x, int y, int w, int h,
-            int numAnims, int r, int c, 
-            const char* imgRes, int speed){
+Hero::Hero(Screen *s, const char* imgRes, int x, int y, int w, int h,
+            int numAnims, int r, int c, int speed){
 
-    this->sprite = new Sprite(imgRes,numAnims, r, c);
+    this->sprite = new Sprite(s->getRenderer(), imgRes,numAnims, r, c);
+    this->x = x;
+    this->y = y;
 
-    
     if(this->w < 0)
         this->w = this->sprite->getWidth();
     else
@@ -25,8 +25,6 @@ Hero::Hero(int x, int y, int w, int h,
 
     reactive = true;
     collider = true;
-
-    this->name = name;
 }
 
 void Hero::update(int dTime){
@@ -53,18 +51,18 @@ void Hero::update(int dTime){
 
 }
 
-void Hero::moveLeft(){
+void Hero::moveLeft(int dTime){
     velocityX = -speed;
 }
 
-void Hero::moveRight(){
+void Hero::moveRight(int dTime){
     velocityX = speed;
 }
 
-void Hero::moveUp(){
+void Hero::moveUp(int dTime){
     velocityY = -speed;
 }
 
-void Hero::moveDown(){
+void Hero::moveDown(int dTime){
     velocityY = speed;
 }
