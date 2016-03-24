@@ -17,6 +17,14 @@ void Camera::Zoom(int z){
     updateRect();
 }
 
+void Camera::setMousePanning(bool pan){
+    mousePanning = pan;
+}
+
+bool Camera::hasMousePanning(){
+    return mousePanning;
+}
+
 SDL_Rect* Camera::getRect(){
     return rect;
 }

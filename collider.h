@@ -1,6 +1,7 @@
 #include <SDL/SDL.h>
+#include "object.h"
 
-class Collider : Object{
+class Collider : public Object{
     public:
 
     private:

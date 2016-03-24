@@ -27,14 +27,7 @@ class Visible : public Object{
                 this->h = h;
         }
 
-        SDL_Rect* getRect(){ return sprite->getRect(); }
-        SDL_Surface* getSurface(){ return sprite->getSurface(); }
-        Sprite* getSprite(){ return sprite; }
         virtual void update(int dTime){ sprite->update(dTime); }
-
-    protected:
-        Sprite *sprite;
-
 };
 
 #endif

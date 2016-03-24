@@ -1,21 +1,60 @@
 #include "sprite.h"
 
-Sprite::Sprite(const char* resource, int numAnims, int r, int c){
+Sprite::Sprite(SDL_Renderer *render, const char* resource, int numAnims, int r, int c){
     
-    surface = IMG_Load(resource);
+    texture = NULL;
+    renderer = render;
+    loadSprite(resource);
     
     curAnim = 0;
     rows = r;
     cols = c;
-
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 }
 
 bool Sprite::loadSprite(const char* resource){
 
-    SDL_FreeSurface(surface);
-    surface = IMG_Load(resource);
+    if(texture)
+        SDL_DestroyTexture(texture);
+
+    SDL_Surface *s = IMG_Load(resource);
+    texture = SDL_CreateTextureFromSurface(renderer, s);
+    SDL_FreeSurface(s);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
     return true;
+}
+
+int Sprite::getX(){
+    return x;
+}
+
+int Sprite::getY(){
+    return y;
+}
+
+int Sprite::getWidth(){
+    return w;
+}
+
+int Sprite::getHeight(){
+    return h;
+}
+
+void Sprite::setX(int x){
+    this->x = x;
+}
+
+void Sprite::setY(int y){
+    this->y = y;
+}
+
+void Sprite::setWidth(int w){
+    this->w = w;
+}
+
+void Sprite::setHeight(int h){
+    this->h = h;
 }
 
 void Sprite::update(int dTime){
@@ -25,16 +64,9 @@ void Sprite::update(int dTime){
 }
 
 SDL_Rect* Sprite::getRect(){
-    
-    //DEBUGGING
-    std::cout << "curAnim -    " << curAnim << std::endl
-              << "anims.size - " << anims.size() << std::endl;
-    //DEBUGGING
-    
+     
     if(anims.size() > 0){
         assert(anims[curAnim].getFrame());
-        std::cout << "frame w - " << anims[curAnim].getFrame()->w << std::endl
-                  << "frame h - " << anims[curAnim].getFrame()->h << std::endl;
         return anims[curAnim].getFrame();
     }
     
@@ -42,8 +74,8 @@ SDL_Rect* Sprite::getRect(){
     
 }
 
-SDL_Surface* Sprite::getSurface(){
-    return surface;
+SDL_Texture* Sprite::getTexture(){
+    return texture;
 }
 
 void Sprite::play(){

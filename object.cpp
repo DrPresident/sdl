@@ -11,22 +11,68 @@ Object::Object(){
     correction = 0;
     collider = true;
     reactive = false;
+    sprite = NULL;
+    col = NULL;
 }
 
-Object::Object(int x, int y, int w, int h, bool collider, bool reactive){
+Object::Object(int x, int y, int w, int h){
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
     hit = 0x0;
-    this->collider = collider;
-    this->reactive = reactive;
+    this->collider = false;
+    this->reactive = false;
+    sprite = NULL;
+}
+
+int Object::getX(){
+    return x;
+}
+
+int Object::getY(){
+    return y;
+}
+
+int Object::getWidth(){
+    return w;
+}
+
+int Object::getHeight(){
+    return h;
+}
+
+Sprite* Object::getSprite(){
+    return sprite;
+}
+
+void Object::setX(int x){
+    this->x = x;
+}
+
+void Object::setY(int y){
+    this->y = y;
+}
+
+void Object::setWidth(int w){
+    this->w = w;
+}
+
+void Object::setHeight(int h){
+    this->h = h;
+}
+
+bool Object::canCollide(){
+    return collider;
+}
+
+void Object::setCollider(bool col){
+    collider = col;
 }
 
 bool Object::isColliding(Object *col){
    
     hit = 0x0; 
-    cout << "checking col" << endl;
 
     /* --Hit Flags--
      *   0000 0000
@@ -88,9 +134,7 @@ bool Object::isColliding(Object *col){
 
 void Object::handleCollision(){
    
-    cout << "handling collision" << endl; 
     if(hit & LEFT){
-        cout << "hit left" << endl;
         if(this->reactive)
             this->x += CORRECTION;
         
@@ -98,7 +142,6 @@ void Object::handleCollision(){
             col->x -= CORRECTION;
     }
     else if(hit & RIGHT){
-        cout << "hit right" << endl;
         if(this->reactive)
             this->x -= CORRECTION;
 
@@ -106,7 +149,6 @@ void Object::handleCollision(){
             col->x += CORRECTION;
     }
     if(hit & TOP){
-        cout << "hit top" << endl;
         if(this->reactive)
             this->y += CORRECTION;
 
@@ -114,7 +156,6 @@ void Object::handleCollision(){
             col->y -= CORRECTION;
     }
     else if(hit & BOT){
-        cout << "hit bot" << endl;
         if(this->reactive)
             this->y -= CORRECTION;
 
@@ -123,3 +164,8 @@ void Object::handleCollision(){
     }
 }
 
+void Object::update(int dTime){
+    x += velocityX * dTime;
+    y += velocityY * dTime;
+    sprite->update(dTime);
+}

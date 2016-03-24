@@ -22,8 +22,8 @@ Animation::Animation(Sprite *sprite, int startFrame, int frames,
     this->xOffset = 0;
     this->yOffset = 0;
    
-    frameWidth = (sprite->surface->w - xOffset) / sprite->cols;
-    frameHeight = (sprite->surface->h - yOffset) / sprite->rows;
+    frameWidth = (sprite->w - xOffset) / sprite->cols;
+    frameHeight = (sprite->h - yOffset) / sprite->rows;
     
     this->startFrame = startFrame;
     numFrames = frames;
@@ -96,8 +96,6 @@ void Animation::update(int dTime){
 }
 
 SDL_Rect* Animation::getFrame(){
-
-    assert(rect);
     return rect;
 }
 

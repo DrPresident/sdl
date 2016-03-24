@@ -1,26 +1,33 @@
 #ifndef SPRITE
 #define SPRITE
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <vector>
 #include <cassert>
-#include "object.h"
 #include "anim.h"
-
-#include <iostream>
 
 class Animation;
 
-class Sprite : public Object{
+class Sprite{
     public:
-        Sprite(const char* resource, int numAnims = 0, int r = 1, int c = 1);
+        Sprite(SDL_Renderer *render, const char* resource, int numAnims = 0, int r = 1, int c = 1);
         bool loadSprite(const char*);
 
-        void update(int);
+        int getX();
+        int getY();
+        int getWidth();
+        int getHeight();
+        
+        void setX(int x);
+        void setY(int y);
+        void setWidth(int w);
+        void setHeight(int h);
+        
+        virtual void update(int);
         
         SDL_Rect* getRect();
-        SDL_Surface* getSurface();
+        SDL_Texture* getTexture();
 
         void play();
         void start();
@@ -31,12 +38,17 @@ class Sprite : public Object{
         void setAnim(int);
 
     private:
-        SDL_Surface* surface;
+        SDL_Renderer* renderer;
+        SDL_Texture* texture;
         std::vector<Animation> anims;
 
         int curAnim;
         int rows;
         int cols;
+        int x;
+        int y;
+        int w;
+        int h;
 
         friend class Animation;
 };

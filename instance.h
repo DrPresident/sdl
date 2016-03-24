@@ -1,5 +1,3 @@
-#include <SDL/SDL.h>
-#include <vector>
 #ifndef INSTANCE
 #define INSTANCE
 
@@ -12,7 +10,7 @@ class Instance{
         void run();
         void updateScreens(int);
 
-        void addScreen(Screen& scr){ screens.push_back(&scr); }
+        void addScreen(Screen& scr);
         void removeScreen(Screen&);
     private:
     

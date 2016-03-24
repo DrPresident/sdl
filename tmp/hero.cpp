@@ -1,13 +1,23 @@
 #include "hero.h"
 #include <cmath>
 
-Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w, int h,
-            int numAnims, int r, int c)
-            : Visible(imgRes, x, y, w, h, numAnims, r, c, true, true){
+Hero::Hero(Screen *s, const char* imgRes, int x, int y, int w, int h,
+            int numAnims, int r, int c, int speed){
 
-    //TESTING
+    this->sprite = new Sprite(s->getRenderer(), imgRes,numAnims, r, c);
+    this->x = x;
+    this->y = y;
+
+    if(this->w < 0)
+        this->w = this->sprite->getWidth();
+    else
+        this->w = w;
+
+    if(this->h < 0)
+        this->h = this->sprite->getHeight();
+    else
+        this->h = h;
     sprite->addAnim(0, 3, 1000);
-    //TESTING
     
     this->speed = speed;
     velocityX = 0;
@@ -15,11 +25,12 @@ Hero::Hero(const char* name, const char* imgRes, int speed, int x, int y, int w,
 
     reactive = true;
     collider = true;
-
-    this->name = name;
 }
 
 void Hero::update(int dTime){
+    
+    x += velocityX * dTime;
+    y += velocityY * dTime;
 
     if(velocityX || velocityY){
         if(abs(velocityX) > abs(velocityY)){
@@ -41,33 +52,17 @@ void Hero::update(int dTime){
 }
 
 void Hero::moveLeft(int dTime){
-    x -= speed * dTime;
+    velocityX = -speed;
 }
 
 void Hero::moveRight(int dTime){
-    x += speed * dTime;
+    velocityX = speed;
 }
 
 void Hero::moveUp(int dTime){
-    y -= speed * dTime;
+    velocityY = -speed;
 }
 
 void Hero::moveDown(int dTime){
-    y += speed * dTime;
+    velocityY = speed;
 }
-
-/*
-void Hero::jump(int dTime){}
-
-void Hero::attack(int dTime){
-    
-}
-
-void Hero::shoot(int dTime){
-
-}
-
-void Hero::onClick(int button, int x, int y){
-
-}
-*/
