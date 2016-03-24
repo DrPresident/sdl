@@ -13,7 +13,11 @@ using namespace std;
 
 const int FPS = 60;
 
-void quit(){ SDL_Quit(); }
+bool q = false;
+void quit(){ 
+    SDL_Quit();
+    q = true; 
+}
 
 int main(){
 
@@ -48,14 +52,13 @@ int main(){
     for(dTime = 0; (curTime - startTime) < RUNTIME; dTime = SDL_GetTicks() - curTime){
 
         controller->checkInput(dTime);
+        if(q) break;
 
         if(dTime >= 1000 / FPS){
             curTime += dTime;
             game.updateScreens(dTime);
         }
     }
-
-    SDL_Quit();
 
     return 0;
 }

@@ -64,6 +64,8 @@ template <typename T>
 Controls<T>::Controls(T* character){
 
     this->character = character;
+    mouseBinding = NULL;
+    quit = NULL;
 }
 
 
@@ -90,7 +92,7 @@ void Controls<T>::checkInput(int dTime){
                     (character->*(separateMouseBindings[event.button.button]))(event.button.button, event.button.x, event.button.y);
 
                 // GENERAL MOUSE BUTTON FUNCTION
-                else
+                else if(mouseBinding)
                     (character->*(mouseBinding))(event.button.button, event.button.x, event.button.y);
                 
                 break;
@@ -100,7 +102,8 @@ void Controls<T>::checkInput(int dTime){
                 break;
         
             case SDL_QUIT:
-                (*(quit))();
+                if(quit)
+                    (*(quit))();
                 break;      
         }
     }
