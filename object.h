@@ -31,6 +31,7 @@ class Object{
         bool isColliding(Object*);
 
         void handleCollision();
+        virtual void update();
 
     protected:
         int x;
