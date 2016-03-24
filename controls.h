@@ -45,10 +45,15 @@ class Controls{
         T* character;
         SDL_Event event;
 
+        std::vector<void (T::*)(int)>   objectBindings;
+        std::vector<void (*)(int)>      globalBindings;
+        std::vector<void (T::*)(int, int, int)> mouseBindings;
+
         std::map<int, void (T::*)(int)> characterKeyBindings;
         std::map<int, void(*)(int)>     keyBindings;
-        void (T::*mouseBinding)(int, int, int);
         std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
+        
+        void (T::*mouseBinding)(int, int, int);
         void (*quit)();
 };
 
@@ -62,8 +67,9 @@ Controls<T>::Controls(){
 
 template <typename T>
 Controls<T>::Controls(T* character){
-
     this->character = character;
+    character = NULL;
+    quit = NULL;
 }
 
 
