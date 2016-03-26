@@ -2,7 +2,7 @@
 #define CONTROLS
 
 #include <SDL2/SDL.h>
-#include <map>
+#include <vector>
 #include "anim.h"
 
 template<typename T>
@@ -47,13 +47,13 @@ class Controls{
 
         std::vector<void (T::*)(int)>   objectBindings;
         std::vector<void (*)(int)>      globalBindings;
-        std::vector<void (T::*)(int, int, int)> mouseBindings;
-
+/*
         std::map<int, void (T::*)(int)> characterKeyBindings;
         std::map<int, void(*)(int)>     keyBindings;
         std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
-        
-        void (T::*mouseBinding)(int, int, int);
+*/
+        void (T::*objectMouseBinding)(int, int, int);
+        void (*globalMouseBinding)(int, int, int);
         void (*quit)();
 };
 
@@ -61,15 +61,25 @@ template <typename T>
 Controls<T>::Controls(){
     
     character = NULL;
-    mouseBinding = NULL;
+    objectMouseBinding = NULL;
+    globalMouseBinding = NULL;
     quit = NULL;
+    for(int i = 0; i < 100; i++){
+        objectBindings[i] = NULL;
+        globalBindings[i] = NULL;
+    }
 }
 
 template <typename T>
 Controls<T>::Controls(T* character){
     this->character = character;
-    mouseBinding = NULL;
+    objectMouseBinding = NULL;
+    globalMouseBinding = NULL;
     quit = NULL;
+    for(int i = 0; i < 100; i++){
+        objectBindings[i] = NULL;
+        globalBindings[i] = NULL;
+    }
 }
 
 
@@ -81,8 +91,10 @@ void Controls<T>::checkInput(int dTime){
         switch(event.type){
        
             case SDL_KEYDOWN:
-                if(characterKeyBindings.find(event.key.keysym.sym) != characterKeyBindings.end())
-                    (character->*(characterKeyBindings[event.key.keysym.sym]))(dTime);
+                if(objectBindings[event.key.keysym.sym])
+                    (character->*(objectBindings[event.key.keysym.sym]))(dTime);
+                if(globalBindings[event.key.keysym.sym])
+                    *(globalBindings[event.key.keysym.sym])(dTime);
                 break;
         
             case SDL_KEYUP:
@@ -90,14 +102,12 @@ void Controls<T>::checkInput(int dTime){
                 break;
         
             case SDL_MOUSEBUTTONDOWN:
-                
-                // SINGLE MOUSE BUTTON FUNCTIONS
-                if(separateMouseBindings.find(event.button.button) != separateMouseBindings.end())
-                    (character->*(separateMouseBindings[event.button.button]))(event.button.button, event.button.x, event.button.y);
-
-                // GENERAL MOUSE BUTTON FUNCTION
-                else if(mouseBinding)
-                    (character->*(mouseBinding))(event.button.button, event.button.x, event.button.y);
+                if(objectMouseBinding)
+                    (character->*(objectMouseBinding))(event.button.button, 
+                            event.button.x, event.button.y);
+                if(globalMouseBinding)
+                    *(globalBindings)(event.button.button, 
+                            event.button.x, event.button.y);
                 
                 break;
 
@@ -107,7 +117,7 @@ void Controls<T>::checkInput(int dTime){
         
             case SDL_QUIT:
                 if(quit)
-                    (*(quit))();
+                    *(quit)();
                 break;      
         }
     }
