@@ -25,7 +25,7 @@ class Screen{
 
     private:
         std::vector<Object*> drawn;
-        std::vector<Object*> colliders;
+        std::vector<Collider*> colliders;
         std::vector<Camera*> cameras;
 
         SDL_Window *screen;

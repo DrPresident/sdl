@@ -20,12 +20,6 @@ class Controls{
          */
         void bindControl(int, void (T::*)(int));
 
-        /* Sets up the key binding for a single mouse key, 
-         * keys set up this way take priority over the function
-         * that controls all mouse key bindings.
-         */
-//        void bindControl(int, void (T::*)(int, int, int));
-
         /* Binds all mouse keys to one function, will clear previous
          * bindings to mouse keys, but any set up after will have
          * higher priority.
@@ -47,11 +41,7 @@ class Controls{
 
         std::vector<void (T::*)(int)>   objectBindings;
         std::vector<void (*)(int)>      globalBindings;
-/*
-        std::map<int, void (T::*)(int)> characterKeyBindings;
-        std::map<int, void(*)(int)>     keyBindings;
-        std::map<int, void (T::*)(int, int,int)> separateMouseBindings;
-*/
+        
         void (T::*objectMouseBinding)(int, int, int);
         void (*globalMouseBinding)(int, int, int);
         void (*quit)();
@@ -130,33 +120,21 @@ void Controls<T>::bindQuit(void (*q)()){
 
 template <typename T>
 void Controls<T>::bindControl(int key, void (T::*func)(int)){
-    
-    characterKeyBindings.erase(key);
-    keyBindings.erase(key);
-
-    characterKeyBindings[key] = func;
+ 
+    globalBindings[key] = NULL;   
+    objectBindings[key] = func;
 }
-
-/*
-template <typename T>
-void Controls<T>::bindControl(int key, void (T::*func)(int, int, int)){
-
-    if(key < 3 && key > 0)
-        separateMouseBindings[key] = func;
-}
-*/
 
 template <typename T>
 void Controls<T>::bindControl(void (T::*func)(int, int, int)){
 
-    //separateMouseBindings.clear();
-    mouseBinding = func;
+    objectMouseBinding = func;
 }
 
 template <typename T>
-void Controls<T>::bindControl(int, void (*func)(int)){
+void Controls<T>::bindControl(int key, void (*func)(int)){
 
-    
+    globalBindings[key] = func;
 }
 
 #endif

@@ -17,7 +17,6 @@ void Screen::update(int dTime){
     //check Collisions
     for(int x = 0; x < colliders.size() - 1; x++)
         for(int y = x + 1; y < colliders.size(); y++){
- //           cout << "checking " << x << ',' << y << endl;
             if(colliders[x]->isColliding(colliders[y]))
                 colliders[x]->handleCollision();
         }
@@ -32,7 +31,7 @@ void Screen::update(int dTime){
         position.h = drawn[i]->getHeight();
         position.w = drawn[i]->getWidth();
 
-//        SDL_BlitSurface(drawn[i]->getSurface(), drawn[i]->getRect(), screen, &position);
+        SDL_RenderCopy(render, drawn[i]->get(), drawn[i]->getRect(), screen, &position);
     }
     
 //    SDL_Flip(screen);
