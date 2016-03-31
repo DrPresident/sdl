@@ -7,6 +7,7 @@ Object::Object(){
     y = 0;
     w = 0;
     h = 0;
+    parent = NULL;
 }
 
 Object::Object(int x, int y, int w, int h){
@@ -14,39 +15,34 @@ Object::Object(int x, int y, int w, int h){
     this->y = y;
     this->w = w;
     this->h = h;
+    parent = NULL;
 }
 
-int Object::getX(){
-    return x;
+bool Object::attachTo(Object *par){
+    if(par != this){
+        parent = par;
+        return true;
+    }
+    return false;
 }
 
-int Object::getY(){
-    return y;
+bool Object::attachChild(Object *child){
+    if(child != this){
+        children.push_back(child);
+        return true;
+    }
+    return false;
 }
 
-int Object::getWidth(){
-    return w;
-}
+int Object::getX(){ return x; }
+int Object::getY(){ return y; }
+int Object::getWidth(){ return w; }
+int Object::getHeight(){ return h; }
 
-int Object::getHeight(){
-    return h;
-}
-
-void Object::setX(int x){
-    this->x = x;
-}
-
-void Object::setY(int y){
-    this->y = y;
-}
-
-void Object::setWidth(int w){
-    this->w = w;
-}
-
-void Object::setHeight(int h){
-    this->h = h;
-}
+void Object::setX(int x){ this->x = x; }
+void Object::setY(int y){ this->y = y; }
+void Object::setWidth(int w){ this->w = w; }
+void Object::setHeight(int h){ this->h = h; }
 
 void Object::update(int dTime){
     x += velocityX * dTime;

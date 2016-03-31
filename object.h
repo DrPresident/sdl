@@ -3,6 +3,7 @@
 
 #include "sprite.h"
 #include <cstddef>
+#include <vector>
 
 using namespace std;
 
@@ -28,6 +29,9 @@ class Object{
         int y;
         int w;
         int h;
+
+        Object *parent;
+        vector<Object*> children;
 //MOVE ELSEWHERE
         int velocityX;
         int velocityY;
