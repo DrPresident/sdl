@@ -37,16 +37,6 @@ void Screen::update(int dTime){
 //    SDL_Flip(screen);
 }
 
-/*
-void Screen::add(Visible &vis){
-
-    drawn.push_back(&vis);
-
-    if(vis.canCollide())
-        colliders.push_back(&vis);
-}
-*/
-
 void Screen::add(Object &obj){
     
     if(obj.canCollide())

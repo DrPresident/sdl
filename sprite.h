@@ -9,11 +9,11 @@
 
 class Animation;
 
-class Sprite{
+class Sprite : public Object{
     public:
         Sprite(SDL_Renderer *render, const char* resource, int numAnims = 0, int r = 1, int c = 1);
         bool loadSprite(const char*);
-
+/*
         int getX();
         int getY();
         int getWidth();
@@ -23,7 +23,7 @@ class Sprite{
         void setY(int y);
         void setWidth(int w);
         void setHeight(int h);
-        
+*/
         virtual void update(int);
         
         SDL_Rect* getRect();
@@ -45,11 +45,12 @@ class Sprite{
         int curAnim;
         int rows;
         int cols;
+/*
         int x;
         int y;
         int w;
         int h;
-
+*/
         friend class Animation;
 };
 
