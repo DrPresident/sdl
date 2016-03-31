@@ -17,7 +17,6 @@ void Screen::update(int dTime){
     //check Collisions
     for(int x = 0; x < colliders.size() - 1; x++)
         for(int y = x + 1; y < colliders.size(); y++){
- //           cout << "checking " << x << ',' << y << endl;
             if(colliders[x]->isColliding(colliders[y]))
                 colliders[x]->handleCollision();
         }
@@ -37,16 +36,6 @@ void Screen::update(int dTime){
     
 //    SDL_Flip(screen);
 }
-
-/*
-void Screen::add(Visible &vis){
-
-    drawn.push_back(&vis);
-
-    if(vis.canCollide())
-        colliders.push_back(&vis);
-}
-*/
 
 void Screen::add(Object &obj){
     
