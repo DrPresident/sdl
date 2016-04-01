@@ -1,8 +1,11 @@
 #include "sprite.h"
+#include "object.h"
 
-class Drawable{
+class Drawable : public Object{
     public:
         Sprite getSprite();
-    private:
+
+        virtual void update(int dTime);
+    protected:
         Sprite sprite;
 };

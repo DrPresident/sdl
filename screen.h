@@ -8,12 +8,13 @@
 //#include "visible.h"
 #include "camera.h"
 #include "collider.h"
+#include "drawable.h"
 
 class Screen{
     public:
         Screen(int w = 640, int h = 480, int fps = 60);
 
-        void update(int);
+        virtual void update(int);
         void draw();
         void add(Object&);
         void remove(Object&);
@@ -24,7 +25,7 @@ class Screen{
         SDL_Window* getScreen();
 
     private:
-        std::vector<Object*> drawn;
+        std::vector<Drawable*> drawn;
         std::vector<Collider*> colliders;
         std::vector<Camera*> cameras;
 

@@ -24,7 +24,7 @@ bool Sprite::loadSprite(const char* resource){
 
     return true;
 }
-
+/*
 int Sprite::getX(){
     return x;
 }
@@ -56,7 +56,7 @@ void Sprite::setWidth(int w){
 void Sprite::setHeight(int h){
     this->h = h;
 }
-
+*/
 void Sprite::update(int dTime){
 
     if(curAnim < anims.size())

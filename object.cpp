@@ -18,6 +18,22 @@ Object::Object(int x, int y, int w, int h){
     parent = NULL;
 }
 
+Object::Object(Object *parent){
+    x = 0;
+    y = 0;
+    w = 0;
+    h = 0;
+    this->parent = parent;
+}
+
+Object::Object(Object *parent, int x, int y, int w, int h){
+    this->x = x;
+    this->y = y;
+    this->w = w;
+    this->h = h;
+    this->parent = parent;
+}
+
 bool Object::attachTo(Object *par){
     if(par != this){
         parent = par;
@@ -29,6 +45,7 @@ bool Object::attachTo(Object *par){
 bool Object::attachChild(Object *child){
     if(child != this){
         children.push_back(child);
+        child->attachTo(this);
         return true;
     }
     return false;

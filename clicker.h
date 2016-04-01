@@ -1,3 +1,5 @@
+#include "collider.h"
+
 class Clicker{
     public:
         Clicker();

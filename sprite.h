@@ -6,6 +6,7 @@
 #include <vector>
 #include <cassert>
 #include "anim.h"
+#include "object.h"
 
 class Animation;
 
@@ -13,17 +14,6 @@ class Sprite : public Object{
     public:
         Sprite(SDL_Renderer *render, const char* resource, int numAnims = 0, int r = 1, int c = 1);
         bool loadSprite(const char*);
-/*
-        int getX();
-        int getY();
-        int getWidth();
-        int getHeight();
-        
-        void setX(int x);
-        void setY(int y);
-        void setWidth(int w);
-        void setHeight(int h);
-*/
         virtual void update(int);
         
         SDL_Rect* getRect();

@@ -11,6 +11,11 @@ class Object{
     public:
         Object();
         Object(int x, int y, int w, int h);
+        Object(Object *parent);
+        Object(Object *parent, int x, int y, int w, int h);
+
+        bool attachTo(Object *par);
+        bool attachChild(Object *child);
 
         int getX();
         int getY();

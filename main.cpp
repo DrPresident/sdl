@@ -29,29 +29,29 @@ int main(){
     
     Screen mainWindow(1080, 920);
 
-    Hero *hero     = new Hero(&mainWindow, "res/sprite.bmp", 100, 100, 32, 32, 4, 4, 3, 10);
-    Hero *testHero = new Hero(&mainWindow, "res/sprite.bmp", 90, 90, 32, 32, 4, 4, 3, 10);
+//    Hero *hero     = new Hero(&mainWindow, "res/sprite.bmp", 100, 100, 32, 32, 4, 4, 3, 10);
+//    Hero *testHero = new Hero(&mainWindow, "res/sprite.bmp", 90, 90, 32, 32, 4, 4, 3, 10);
 //    Visible background("res/blank.bmp", 0, 0, -1, -1, 0, 1, 1, false, false);
-    Controls<Hero> *controller = new Controls<Hero>(hero);
+//    Controls<Hero> *controller = new Controls<Hero>(hero);
     Instance game;
 
 
 
- //   mainWindow.add(background);
-    mainWindow.add(*testHero);
-    mainWindow.add(*hero);
+//    mainWindow.add(background);
+//    mainWindow.add(*testHero);
+//    mainWindow.add(*hero);
 
     game.addScreen(&mainWindow);
     
-    controller->bindControl(SDLK_DOWN, &Hero::moveDown);
-    controller->bindQuit(&quit);
+//    controller->bindControl(SDLK_DOWN, &Hero::moveDown);
+//    controller->bindQuit(&quit);
 
     startTime = SDL_GetTicks();
     curTime = startTime;
 
     for(dTime = 0; (curTime - startTime) < RUNTIME; dTime = SDL_GetTicks() - curTime){
 
-        controller->checkInput(dTime);
+//        controller->checkInput(dTime);
         if(q) break;
 
         if(dTime >= 1000 / FPS){

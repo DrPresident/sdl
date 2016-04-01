@@ -31,7 +31,7 @@ void Screen::update(int dTime){
         position.h = drawn[i]->getHeight();
         position.w = drawn[i]->getWidth();
 
-        SDL_RenderCopy(render, drawn[i]->get(), drawn[i]->getRect(), screen, &position);
+        SDL_RenderCopy(render, drawn[i]->getSprite(), drawn[i]->getRect(), screen, &position);
     }
     
 //    SDL_Flip(screen);
