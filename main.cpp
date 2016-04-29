@@ -41,7 +41,7 @@ int main(){
 //    mainWindow.add(*testHero);
 //    mainWindow.add(*hero);
 
-    game.addScreen(&mainWindow);
+    game.addScreen(mainWindow);
     
 //    controller->bindControl(SDLK_DOWN, &Hero::moveDown);
 //    controller->bindQuit(&quit);

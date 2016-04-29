@@ -1,11 +1,13 @@
 #include "drawable.h"
 
-void update(int dTime){
-
-    Object::update(dTime);
-
+SDL_Rect* Drawable::getRect(){
+    return sprite.getRect();
 }
 
 Sprite Drawable::getSprite(){
     return sprite;
+}
+
+void Drawable::update(int dTime){
+    Object::update(dTime);
 }

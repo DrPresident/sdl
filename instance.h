@@ -13,10 +13,10 @@ class Instance{
         void run();
         void updateScreens(int);
 
-        void addScreen(Screen*);
-        void addCollider(Collider*);
-        void addSprite(Sprite*);
-        void removeScreen(Screen*);
+        void addScreen(Screen&);
+        void addCollider(Collider&);
+        void addSprite(Sprite&);
+        void removeScreen(Screen&);
 
     private:
         std::vector<Screen*> screens;

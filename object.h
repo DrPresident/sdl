@@ -1,7 +1,6 @@
 #ifndef OBJECT
 #define OBJECT
 
-#include "sprite.h"
 #include <cstddef>
 #include <vector>
 
@@ -27,7 +26,7 @@ class Object{
         void setWidth(int w);
         void setHeight(int h);
         
-        virtual void update(int);
+        void update(int);
 
     protected:
         int x;

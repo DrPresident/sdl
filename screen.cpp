@@ -17,8 +17,7 @@ void Screen::update(int dTime){
     //check Collisions
     for(int x = 0; x < colliders.size() - 1; x++)
         for(int y = x + 1; y < colliders.size(); y++){
-            if(colliders[x]->isColliding(colliders[y]))
-                colliders[x]->handleCollision();
+            if(colliders[x]->isColliding(colliders[y])){}
         }
 
     //drawing
@@ -30,17 +29,20 @@ void Screen::update(int dTime){
         position.y = drawn[i]->getY();
         position.h = drawn[i]->getHeight();
         position.w = drawn[i]->getWidth();
-
-        SDL_RenderCopy(render, drawn[i]->getSprite(), drawn[i]->getRect(), screen, &position);
-    }
+/*
+        SDL_RenderCopy(render, drawn[i]->getSprite().getTexture(), 
+                drawn[i]->getRect(), screen, &position);
+  */
+        }
     
 //    SDL_Flip(screen);
 }
 
 void Screen::add(Object &obj){
-    
+   /* 
     if(obj.canCollide())
         colliders.push_back(&obj);
+   */
 }
 
 void Screen::remove(Object &obj){

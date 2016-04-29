@@ -4,8 +4,9 @@
 class Drawable : public Object{
     public:
         Sprite getSprite();
+        SDL_Rect* getRect();
 
-        virtual void update(int dTime);
+        void update(int dTime);
     protected:
         Sprite sprite;
 };

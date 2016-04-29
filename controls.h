@@ -84,7 +84,7 @@ void Controls<T>::checkInput(int dTime){
                 if(objectBindings[event.key.keysym.sym])
                     (character->*(objectBindings[event.key.keysym.sym]))(dTime);
                 if(globalBindings[event.key.keysym.sym])
-                    *(globalBindings[event.key.keysym.sym])(dTime);
+                    (globalBindings[event.key.keysym.sym])(dTime);
                 break;
         
             case SDL_KEYUP:

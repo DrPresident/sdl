@@ -1,6 +1,6 @@
 #include "clicker.h"
 
-Clicker::Clicker(Collider *col){
+Clicker::Clicker(){
 
 }
 

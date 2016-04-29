@@ -1,11 +1,23 @@
 #include "collider.h"
 
+Collider::Collider(){
+    parent = this;
+    x = parent->getX();
+    y = parent->getY();
+    w = parent->getWidth();
+    h = parent->getHeight();
+    reactive = false;
+    col = NULL;
+}
+
 Collider::Collider(Object *par){
     parent = par;
-    x = par->x;
-    y = par->y;
-    w = par->w;
-    h = par->h;
+    x = parent->getX();
+    y = parent->getY();
+    w = parent->getWidth();
+    h = parent->getHeight();
+    reactive = false;
+    col = NULL;
 }
 
 void Collider::update(int dTime){
@@ -14,14 +26,9 @@ void Collider::update(int dTime){
     }else{
 
     }
-}
 
-bool Collider::canCollide(){
-    return collider;
-}
-
-void Collider::setCollider(bool col){
-    collider = col;
+    if(col)
+        handleCollision();
 }
 
 bool Collider::isColliding(Collider *col){
@@ -38,34 +45,36 @@ bool Collider::isColliding(Collider *col){
         int xIntersect;
 
         // if col hits this on the left
-        if(par->x <= col->x + col->w 
-           && par->x > col->x){
+        if(parent->getX() <= col->x + col->w 
+           && parent->getX() > col->x){
 
             hit |= LEFT;
-            xIntersect = (par->x - col->x + col->w) / (par->w + col->w);
+            xIntersect = (parent->getX() - col->x + col->w) / (parent->getWidth() + col->w);
         }
         // if col hits this on the right
-        else if(par->x + par->w >= col->x
+        else if(parent->getX() + parent->getWidth() >= col->x
                 && this->x <= col->x){
 
             hit |= RIGHT;
-            xIntersect = (par->x + par->w - col->x) / (par->w + col->w);
+            xIntersect = (parent->getX() + parent->getWidth() - col->x) 
+                / (parent->getWidth() + col->w);
         }
 
         if(hit){
             // if col hits this on the top
-            if(par->y <= col->y + col->h
-               && par->y >= col->y){
+            if(parent->getY() <= col->y + col->h
+               && parent->getY() >= col->y){
 
                 hit |= TOP;
-                yIntersect = (par->y - col->y + col->h) / (par->h + col->h);
+                yIntersect = (parent->getY() - col->y + col->h) / (parent->getHeight() + col->h);
             }
             // if col hits this on the bottom
-            else if(par->y + par->h >= col->y
-                    && par->y + par->h <= col->y + col->h){
+            else if(parent->getY() + parent->getHeight() >= col->y
+                    && parent->getY() + parent->getHeight() <= col->y + col->h){
 
                 hit |= BOT;
-                yIntersect = (par->y + par->h - col->y) / (par->h + col->h);
+                yIntersect = (parent->getY() + parent->getHeight() - col->y) 
+                    / (parent->getHeight() + col->h);
             }
 
             if(yIntersect < 0)
@@ -77,7 +86,7 @@ bool Collider::isColliding(Collider *col){
                 hit &= 0x03 :
                 hit &= 0x0C;
 
-            par->col = col;
+            //par->col = col;
             return true;
         }
     }

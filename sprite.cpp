@@ -1,5 +1,14 @@
 #include "sprite.h"
 
+Sprite::Sprite(){
+
+    texture = NULL;
+    renderer = NULL;
+    curAnim = 0;
+    rows = 1;
+    cols = 1;
+}
+
 Sprite::Sprite(SDL_Renderer *render, const char* resource, int numAnims, int r, int c){
     
     texture = NULL;
