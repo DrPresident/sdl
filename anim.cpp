@@ -14,21 +14,20 @@ Animation::Animation(){
     rect->h = frameHeight;
 }
 
-Animation::Animation(Sprite *sprite, int startFrame, int frames, 
-                     int msDelay){
+Animation::Animation(Sprite *sprite, int rows, int cols, int msDelay, 
+                     int startFrame){
 
     this->sprite = sprite;
  
     this->xOffset = 0;
     this->yOffset = 0;
    
-    frameWidth = (sprite->w - xOffset) / sprite->cols;
-    frameHeight = (sprite->h - yOffset) / sprite->rows;
+    frameWidth = (sprite->w - xOffset) / cols;
+    frameHeight = (sprite->h - yOffset) / rows;
     
     this->startFrame = startFrame;
-    numFrames = frames;
+    numFrames = rows * cols;
     delay = msDelay;
-    
 
     curFrame = startFrame;
     timer = 0;

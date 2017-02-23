@@ -11,8 +11,8 @@ class Animation{
     public:
 
         Animation();
-        Animation(Sprite *sprite, int startFrame, int frames, 
-                  int msDelay);
+        Animation(Sprite *sprite, int rows, int cols, int msDelay, 
+                  int startFrame = 0);
 
         void play(int loop = 1);
         void start();
@@ -31,7 +31,9 @@ class Animation{
         int totalRows,
             totalColumns,
             row,
+            rows,
             col,
+            cols,
             frameHeight,
             frameWidth,
             numFrames,
