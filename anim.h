@@ -12,9 +12,9 @@ class Animation{
 
         Animation();
         Animation(Sprite *sprite, int rows, int cols, int msDelay, 
-                  int startFrame = 0);
+                  int startFrame=0);
 
-        void play(int loop = 1);
+        void play(int loop=1);
         void start();
         void stop();
         void update(int);
@@ -49,7 +49,6 @@ class Animation{
         bool stopping;
         Sprite* sprite;
         SDL_Rect *rect;
-        
 };
 
 #endif
